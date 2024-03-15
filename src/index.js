@@ -6,9 +6,16 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 app.use(express.json());
+
+// Import user authentication routes
+const authRoutes = require("./routes/authRoutes");
 app.use("/api/users", authRoutes);
 
-//Connect to MongoDB
+// Import movie routes
+const movieRoutes = require("./routes/movieRoutes");
+app.use("/api/movies", movieRoutes);
+
+// Connect to MongoDB
 mongoose
   .connect(process.env.MONGODB_URI)
   .then(() => console.log("Connected to MongoDB"))
@@ -21,6 +28,3 @@ app.get("/", (req, res) => {
 app.listen(PORT, () => {
   console.log(`Server is listening on PORT ${PORT}`);
 });
-
-//Create a server
-//Connect to a DB
